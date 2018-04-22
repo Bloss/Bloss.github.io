@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Yubisaki | git使用的问题</title>
+    <meta name="description" content="vuepress theme Yubisaki">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="git 使用"><meta name="keywords" content="git">
+    <link rel="preload" href="/assets/css/15.styles.03fdebab.css" as="style"><link rel="preload" href="/assets/js/app.db3000a5.js" as="script"><link rel="preload" href="/assets/js/7.29200efe.js" as="script"><link rel="prefetch" href="/assets/js/8.6d436374.js"><link rel="prefetch" href="/assets/js/1.cf298749.js"><link rel="prefetch" href="/assets/js/2.d82320e5.js"><link rel="prefetch" href="/assets/js/3.133ffd67.js"><link rel="prefetch" href="/assets/js/4.3a8bcec1.js"><link rel="prefetch" href="/assets/js/5.1ad46237.js"><link rel="prefetch" href="/assets/js/6.e3166425.js"><link rel="prefetch" href="/assets/js/0.548fc29d.js"><link rel="prefetch" href="/assets/js/9.00286f1c.js"><link rel="prefetch" href="/assets/js/10.8f545860.js"><link rel="prefetch" href="/assets/js/11.778aaf54.js"><link rel="prefetch" href="/assets/js/12.c9910cbf.js"><link rel="prefetch" href="/assets/js/13.333135f3.js"><link rel="prefetch" href="/assets/js/14.01e7f945.js">
+    <link rel="stylesheet" href="/assets/css/15.styles.03fdebab.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div><div class="wrap"><div class="theme-container container no-sidebar"><header class="navbar"><div class="nav-header"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><img src="/favicon.ico" class="logo"><span class="site-name can-hide">
+        Yubisaki
+      </span></a><nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">HOME</a></div><div class="nav-item"><a href="https://github.com/bloss" target="_blank" rel="noopener noreferrer" class="nav-link">GITHUB</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><!----></nav><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div></div></div></header><div class="sidebar-mask"></div><div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">HOME</a></div><div class="nav-item"><a href="https://github.com/bloss" target="_blank" rel="noopener noreferrer" class="nav-link">GITHUB</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><!----></nav><!----></div><div class="page-container"><div class="page card"><h1 class="page-title" style="color:#ac3e40;">
+    git使用的问题
+  </h1><div class="content"><h4 id="git的三个区-四个状态"><a href="#git的三个区-四个状态" aria-hidden="true" class="header-anchor">#</a> git的三个区, 四个状态</h4><ul><li>三个区
+工作区 暂存区 版本库</li><li>四个状态
+未修改<code>unmodified</code>, 修改<code>modified</code>,  暂存<code>staged</code>,  未加入git<code>untracked</code></li></ul><h4 id="git撤销暂存区与工作区"><a href="#git撤销暂存区与工作区" aria-hidden="true" class="header-anchor">#</a> git撤销暂存区与工作区</h4><ul><li>撤销工作区
+<code>git checkout &lt;file&gt;</code></li><li>撤销暂存区
+<code>git reset &lt;file&gt;</code></li></ul><h4 id="git已经commit-但是发现有些东西没改-怎么撤销最近一次的commit-修改后重新commit"><a href="#git已经commit-但是发现有些东西没改-怎么撤销最近一次的commit-修改后重新commit" aria-hidden="true" class="header-anchor">#</a> git已经commit, 但是发现有些东西没改, 怎么撤销最近一次的commit,修改后重新commit</h4><ul><li><code>reset</code><strong>慎用</strong><ol><li><code>git reset --soft HEAD^1</code><code>--soft</code>表示仅仅是<code>HEAD</code>指向上个版本, 但是
+缓存区跟工作区不会有任何变化</li><li>再次修改</li><li><code>git add</code> 注意<code>-A</code>,<code>.</code>,<code>-u</code>参数的区别</li><li><code>git commit -c ORIG_HEAD</code> 此时可以修改上一次的commit信息</li></ol></li><li><code>git commit --amend</code><ol><li>做一些修改并提交到暂存区</li><li><code>git commit --amend</code>  此时可以修改上一次的提交信息, 最终只会产生一个提交</li></ol></li></ul><h4 id="push的时候不希望产生很零碎的commit信息"><a href="#push的时候不希望产生很零碎的commit信息" aria-hidden="true" class="header-anchor">#</a> push的时候不希望产生很零碎的commit信息</h4><p><em>假设现在在dev分支</em></p><ol><li><code>git checkout -b &lt;temp&gt;</code>  首先切出一个新的分支, 在新的分支操作</li><li>做几次修改, 做几次提交</li><li><code>git checkout dev</code> 切回原来的分支</li><li><code>git merge --squash temp</code><code>--squash</code>参数表示挤压的意思,
+它会将<code>temp</code>这个分支的所有 commit 都放进<code>dev</code>的暂存区中,
+此时<code>dev</code>分支就可以进行<code>commit</code>, 只会产生一次 commit 信息</li></ol><h4 id="很多时候代码被改的乱七八糟-就需要回到之前的版本-检查一下之前版本的代码-然后再回来"><a href="#很多时候代码被改的乱七八糟-就需要回到之前的版本-检查一下之前版本的代码-然后再回来" aria-hidden="true" class="header-anchor">#</a> 很多时候代码被改的乱七八糟, 就需要回到之前的版本, 检查一下之前版本的代码, 然后再回来</h4><ol><li><code>git checkout &lt;之前的版本号&gt;</code> 这个命令会让<code>HEAD</code>脱离</li><li>这种情况下, 如果想提交修改, 可以创建出新的一个分支来实现:</li><li><code>git checkout -b &lt;branch name&gt;</code></li><li>此时, 如果想回到之前未<code>checkout</code>版本号时的<code>HEAD</code>版本, 只需要检出之前所在的分支:
+<code>git checkout &lt;previous branch name&gt;</code></li></ol><h4 id="冲突的解决"><a href="#冲突的解决" aria-hidden="true" class="header-anchor">#</a> 冲突的解决</h4><ul><li><p><code>git merge</code><em>进入一个场景</em></p><ol><li><p>基于远程分支<code>origin</code>, 创建一个新的分支, 叫做<code>mywork</code><code>git checkout -b mywork &lt;remote&gt;/origin</code></p></li><li><p>做一些修改, 产生两次<code>commit</code></p></li><li><p>但是在此同时, 也有人在<code>origin</code>分支上做了修改并且<code>push</code>了,
+这意味着<code>origin</code>和<code>mywork</code>分支各自前进了, 它们产生了分叉</p></li><li><p>这时候, 可以<code>git pull</code>把<code>origin</code>分支拉下来, 和自己的代码修改合并,
+并解决冲突, 然后提交。这就产生了一次新的<code>commit</code>。上述过程就是<code>3 commits</code><img src="https://blog-1252181333.cos.ap-shanghai.myqcloud.com/blog/3-way-merge.png" alt>
+可以看到分支的修改记录, 并且额外产生了一次新的提交
+当然, 如果<code>origin</code>分支没有修改的话, 那就是<code>Fast Forward</code></p></li></ol></li><li><p><code>git rebase</code><em>当然, 如果你希望<code>mywork</code>分支的记录看起来像没有经过任何合并一样</em></p><pre class="language-text"><code>    git checkout mywork
+    git rebase origin
+</code></pre><ul><li>它会把<code>mywork</code>分支的<code>commit</code>都取消掉, 并且临时保存为<code>patch</code>, 放在<code>.git/rebase</code>目录中,然后把<code>mywork</code>分支更新到与<code>origin</code>同步, 最后把这些<code>patch</code>应用到<code>mywork</code>分支上.</li><li>当然如果有冲突的话, 解决冲突后, <code>git add .</code>, <code>git rebase --continue</code>就可以继续了.</li><li>当<code>mywork</code>分支更新后, 它就会指向新的<code>commit</code>, 而那些老的会被丢弃, <code>git gc</code>就可以删除这些丢弃的<code>commit</code></li><li><code>pick</code>, <code>squash</code>, <code>edit</code>这些参数的用法就不多阐述了</li><li>你可以随时用<code>git rebase --abort</code>来终止<code>rebase</code>操作, 并且<code>mywork</code>分支会回到<code>rebase</code>开始前的状态</li></ul><p><strong><code>rebase</code>处理之后, 整个是一个链式的记录, 不会像<code>merge</code>那样出现分叉</strong></p></li></ul><hr><p><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener noreferrer">pro git 中文</a><a href="https://git-scm.com/book/en/v2" target="_blank" rel="noopener noreferrer">pro git en</a></p></div><!----><div class="content page-nav"><p class="inner"><span class="prev">
+        ← <a href="/blog/call-by-sharing.html" class="prev">
+          JS参数传递方式
+        </a></span><span class="next"><a href="/blog/mysql.html">
+          mysql
+        </a> →
+      </span></p></div></div><!----></div><div class="tool-group"><!----></div></div></div><div class="background-mask" style="background:#f6f6f6;"></div></div></div>
+    <script src="/assets/js/7.29200efe.js" defer></script><script src="/assets/js/app.db3000a5.js" defer></script>
+  </body>
+</html>

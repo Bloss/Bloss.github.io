@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Yubisaki | linux 搭建 tips</title>
+    <meta name="description" content="vuepress theme Yubisaki">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="linux 搭建记录"><meta name="keywords" content="linux">
+    <link rel="preload" href="/assets/css/15.styles.03fdebab.css" as="style"><link rel="preload" href="/assets/js/app.db3000a5.js" as="script"><link rel="preload" href="/assets/js/4.3a8bcec1.js" as="script"><link rel="prefetch" href="/assets/js/8.6d436374.js"><link rel="prefetch" href="/assets/js/1.cf298749.js"><link rel="prefetch" href="/assets/js/2.d82320e5.js"><link rel="prefetch" href="/assets/js/3.133ffd67.js"><link rel="prefetch" href="/assets/js/5.1ad46237.js"><link rel="prefetch" href="/assets/js/6.e3166425.js"><link rel="prefetch" href="/assets/js/7.29200efe.js"><link rel="prefetch" href="/assets/js/0.548fc29d.js"><link rel="prefetch" href="/assets/js/9.00286f1c.js"><link rel="prefetch" href="/assets/js/10.8f545860.js"><link rel="prefetch" href="/assets/js/11.778aaf54.js"><link rel="prefetch" href="/assets/js/12.c9910cbf.js"><link rel="prefetch" href="/assets/js/13.333135f3.js"><link rel="prefetch" href="/assets/js/14.01e7f945.js">
+    <link rel="stylesheet" href="/assets/css/15.styles.03fdebab.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div><div class="wrap"><div class="theme-container container no-sidebar"><header class="navbar"><div class="nav-header"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><img src="/favicon.ico" class="logo"><span class="site-name can-hide">
+        Yubisaki
+      </span></a><nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">HOME</a></div><div class="nav-item"><a href="https://github.com/bloss" target="_blank" rel="noopener noreferrer" class="nav-link">GITHUB</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><!----></nav><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div></div></div></header><div class="sidebar-mask"></div><div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">HOME</a></div><div class="nav-item"><a href="https://github.com/bloss" target="_blank" rel="noopener noreferrer" class="nav-link">GITHUB</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><!----></nav><!----></div><div class="page-container"><div class="page card"><h1 class="page-title" style="color:#ac3e40;">
+    linux 搭建 tips
+  </h1><div class="content"><h3 id="tools"><a href="#tools" aria-hidden="true" class="header-anchor">#</a> tools</h3><pre class="language-bash"><code><span class="token comment"># 多线程下载工具</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> axel
+
+<span class="token comment"># 待补充</span>
+</code></pre><h3 id="nginx"><a href="#nginx" aria-hidden="true" class="header-anchor">#</a> nginx</h3><p>访问<a href="http://nginx.org/" target="_blank" rel="noopener noreferrer"> nginx </a>选择一个版本下载到服务器</p><p>如:</p><pre class="language-bash"><code>axel -n 50 http://nginx.org/download/nginx-1.12.2.tar.gz
+</code></pre><p>配置 <code>nginx</code> 安装路径</p><pre class="language-bash"><code><span class="token function">sudo</span> ./configure --prefix<span class="token operator">=</span>/home/ubuntu/tools/nginx
+</code></pre><p>缺少的库, 一般而言, 有下面两个</p><pre class="language-bash"><code><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> libpcre3 libpcre3-dev
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> zlib1g-dev
+</code></pre><p>make file</p><pre class="language-bash"><code><span class="token function">make</span> <span class="token operator">&amp;&amp;</span> <span class="token function">make</span> <span class="token function">install</span>
+</code></pre><h3 id="git"><a href="#git" aria-hidden="true" class="header-anchor">#</a> git</h3><p>ssh-key</p><pre class="language-bash"><code>ssh-keygen -t rsa -C <span class="token string">&quot;email&quot;</span>
+<span class="token comment"># 如果没有 .ssh 的写入权限, 运行下面的指令</span>
+<span class="token function">mkdir</span> ~/.ssh
+<span class="token function">chmod</span> 777 ~/.ssh
+</code></pre><p>直接回车安装完成</p><pre class="language-bash"><code><span class="token function">cat</span> ~/.ssh/id_rsa.pub
+</code></pre><p>复制公钥到 <code>git</code> 服务器的 <code>ssh-keys</code> 列表中</p><h3 id="python"><a href="#python" aria-hidden="true" class="header-anchor">#</a> python</h3><p>pip</p><pre class="language-bash"><code><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> python-pip
+<span class="token comment"># pip3</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> python3-pip
+</code></pre><p>virtualenv</p><pre class="language-bash"><code>pip3 <span class="token function">install</span> virtualenv
+<span class="token comment"># 如果出 unsupported locale setting 错, 运行下面的命令去除所有本地化设置</span>
+<span class="token function">export</span> LC_ALL<span class="token operator">=</span>C
+</code></pre><p>创建 <code>venv</code></p><pre class="language-bash"><code>virtualenv --no-site-packages venv
+<span class="token comment"># 如果出错, 尝试执行下面这条命令</span>
+python3 -m virtualenv venv
+</code></pre></div><!----><div class="content page-nav"><p class="inner"><span class="prev">
+        ← <a href="/blog/webpack-common-solution.html" class="prev">
+          记录 webpack 打包后的两个问题
+        </a></span><span class="next"><a href="/blog/closure.html">
+          闭包
+        </a> →
+      </span></p></div></div><!----></div><div class="tool-group"><!----></div></div></div><div class="background-mask" style="background:#f6f6f6;"></div></div></div>
+    <script src="/assets/js/4.3a8bcec1.js" defer></script><script src="/assets/js/app.db3000a5.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Yubisaki | mysql</title>
+    <meta name="description" content="vuepress theme Yubisaki">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="mysql 使用记录"><meta name="keywords" content="mysql">
+    <link rel="preload" href="/assets/css/15.styles.03fdebab.css" as="style"><link rel="preload" href="/assets/js/app.db3000a5.js" as="script"><link rel="preload" href="/assets/js/3.133ffd67.js" as="script"><link rel="prefetch" href="/assets/js/8.6d436374.js"><link rel="prefetch" href="/assets/js/1.cf298749.js"><link rel="prefetch" href="/assets/js/2.d82320e5.js"><link rel="prefetch" href="/assets/js/4.3a8bcec1.js"><link rel="prefetch" href="/assets/js/5.1ad46237.js"><link rel="prefetch" href="/assets/js/6.e3166425.js"><link rel="prefetch" href="/assets/js/7.29200efe.js"><link rel="prefetch" href="/assets/js/0.548fc29d.js"><link rel="prefetch" href="/assets/js/9.00286f1c.js"><link rel="prefetch" href="/assets/js/10.8f545860.js"><link rel="prefetch" href="/assets/js/11.778aaf54.js"><link rel="prefetch" href="/assets/js/12.c9910cbf.js"><link rel="prefetch" href="/assets/js/13.333135f3.js"><link rel="prefetch" href="/assets/js/14.01e7f945.js">
+    <link rel="stylesheet" href="/assets/css/15.styles.03fdebab.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div><div class="wrap"><div class="theme-container container no-sidebar"><header class="navbar"><div class="nav-header"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><img src="/favicon.ico" class="logo"><span class="site-name can-hide">
+        Yubisaki
+      </span></a><nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">HOME</a></div><div class="nav-item"><a href="https://github.com/bloss" target="_blank" rel="noopener noreferrer" class="nav-link">GITHUB</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><!----></nav><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div></div></div></header><div class="sidebar-mask"></div><div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">HOME</a></div><div class="nav-item"><a href="https://github.com/bloss" target="_blank" rel="noopener noreferrer" class="nav-link">GITHUB</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><!----></nav><!----></div><div class="page-container"><div class="page card"><h1 class="page-title" style="color:#ac3e40;">
+    mysql
+  </h1><div class="content"><h2 id="mysql创建数据库与创建用户以及授权"><a href="#mysql创建数据库与创建用户以及授权" aria-hidden="true" class="header-anchor">#</a> mysql创建数据库与创建用户以及授权</h2><p><strong>针对<code>mysql5.6</code>以后的版本</strong></p><h4 id="创建用户"><a href="#创建用户" aria-hidden="true" class="header-anchor">#</a> 创建用户</h4><ol><li>以管理员身份登录mysql</li></ol><pre class="language-text"><code>mysql -u root -p
+</code></pre><ol start="2"><li>选择mysql database</li></ol><pre class="language-text"><code>use mysql;
+</code></pre><ol start="3"><li>创建用户并设定密码</li></ol><pre class="language-text"><code>create user 'username'@'localhost' identified by 'urpassword';
+</code></pre><pre><code> 此处`localhost`表示只能本地访问, 可以换为`%`, 表示匹配所有主机, 远程也能访问
+</code></pre><ol start="4"><li>使操作生效</li></ol><pre class="language-text"><code>flush privileges;
+</code></pre><h4 id="创建数据库"><a href="#创建数据库" aria-hidden="true" class="header-anchor">#</a> 创建数据库</h4><ol><li>命令</li></ol><pre class="language-text"><code>create database [数据库名称] default character set utf8 collate utf8_general_ci;
+</code></pre><pre><code> `[]`为了说明使用, 不需要在命令中打出来  
+</code></pre><ol start="2"><li>参数说明:</li></ol><pre><code>- `character set X` --- 采用字符集`X`, 如果单独指定了这项参数, 而没有指定`collate`, 则采用`X`的默认校对规则.
+
+- `collate Y` --- 采用校对规则`Y`.
+
+- 如果两个都没指定, 则采用数据库默认的字符集和校对规则.
+</code></pre><h4 id="为用户赋予操作数据库的权限"><a href="#为用户赋予操作数据库的权限" aria-hidden="true" class="header-anchor">#</a> 为用户赋予操作数据库的权限</h4><ul><li></li></ul><pre class="language-text"><code>    grant all privileges on [数据库名称].* to 'username'@'localhost|%'   
+    identified by 'urpassword';
+</code></pre><ul><li>也可以单独设置某项权限</li></ul><pre class="language-text"><code>    grant insert, update, select, delete, create on [数据库名称].* to   
+    'username'@'localhost|%' identified by 'urpassword';
+</code></pre><ul><li>赋予用户权限的同时, 允许其再授权</li></ul><pre class="language-text"><code>    grant all privileges on [数据库名称].* to 'username'@'localhost|%'    
+    with grant option identified by 'urpassword';
+</code></pre><ul><li>使操作生效</li></ul><pre class="language-text"><code>    flush privileges;
+</code></pre><h4 id="删除和取消操作"><a href="#删除和取消操作" aria-hidden="true" class="header-anchor">#</a> 删除和取消操作</h4><ol><li>取消用户所有数据库的所有权限</li></ol><pre class="language-text"><code>    revoke all on *.* from [username];
+</code></pre><ol start="2"><li>删除用户</li></ol><pre class="language-text"><code>    delete from mysql.user where user = 'username'
+</code></pre><ol start="3"><li>删除数据库</li></ol><pre class="language-text"><code>    drop database [databaseName|schemaName];
+</code></pre></div><!----><!----></div><!----></div><div class="tool-group"><!----></div></div></div><div class="background-mask" style="background:#f6f6f6;"></div></div></div>
+    <script src="/assets/js/3.133ffd67.js" defer></script><script src="/assets/js/app.db3000a5.js" defer></script>
+  </body>
+</html>

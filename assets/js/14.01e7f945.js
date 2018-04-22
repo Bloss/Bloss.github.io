@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[14],{79:function(t,n,s){"use strict";s.r(n);var i={props:["link"]},l=s(0),a=Object(l.a)(i,function(){var t=this.$createElement,n=this._self._c||t;return n("span",[n("a",{staticClass:"nav-link",attrs:{href:"mailto:"+this.link,target:null}},[this._v(this._s(this.link))]),n("br")])},[],!1,null,null,null);n.default=a.exports}}]);

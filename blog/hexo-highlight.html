@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Yubisaki | hexo代码高亮的问题</title>
+    <meta name="description" content="vuepress theme Yubisaki">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="hexo 代码高亮"><meta name="keywords" content="hexo highlight">
+    <link rel="preload" href="/assets/css/15.styles.03fdebab.css" as="style"><link rel="preload" href="/assets/js/app.db3000a5.js" as="script"><link rel="preload" href="/assets/js/6.e3166425.js" as="script"><link rel="prefetch" href="/assets/js/8.6d436374.js"><link rel="prefetch" href="/assets/js/1.cf298749.js"><link rel="prefetch" href="/assets/js/2.d82320e5.js"><link rel="prefetch" href="/assets/js/3.133ffd67.js"><link rel="prefetch" href="/assets/js/4.3a8bcec1.js"><link rel="prefetch" href="/assets/js/5.1ad46237.js"><link rel="prefetch" href="/assets/js/7.29200efe.js"><link rel="prefetch" href="/assets/js/0.548fc29d.js"><link rel="prefetch" href="/assets/js/9.00286f1c.js"><link rel="prefetch" href="/assets/js/10.8f545860.js"><link rel="prefetch" href="/assets/js/11.778aaf54.js"><link rel="prefetch" href="/assets/js/12.c9910cbf.js"><link rel="prefetch" href="/assets/js/13.333135f3.js"><link rel="prefetch" href="/assets/js/14.01e7f945.js">
+    <link rel="stylesheet" href="/assets/css/15.styles.03fdebab.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div><div class="wrap"><div class="theme-container container no-sidebar"><header class="navbar"><div class="nav-header"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><img src="/favicon.ico" class="logo"><span class="site-name can-hide">
+        Yubisaki
+      </span></a><nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">HOME</a></div><div class="nav-item"><a href="https://github.com/bloss" target="_blank" rel="noopener noreferrer" class="nav-link">GITHUB</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><!----></nav><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div></div></div></header><div class="sidebar-mask"></div><div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">HOME</a></div><div class="nav-item"><a href="https://github.com/bloss" target="_blank" rel="noopener noreferrer" class="nav-link">GITHUB</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><!----></nav><!----></div><div class="page-container"><div class="page card"><h1 class="page-title" style="color:#ac3e40;">
+    hexo代码高亮的问题
+  </h1><div class="content"><h3 id="分析"><a href="#分析" aria-hidden="true" class="header-anchor">#</a> 分析</h3><p>首先，看了一下代码块区域的dom结构
+<img src="https://blog-1252181333.cos.ap-shanghai.myqcloud.com/blog/hexo-highlight-1.png" alt>
+发现代码区域的关键字的<code>class</code>为<code>keyword</code></p><p>然后，发现<code>highlight</code>官网给出样式是下图这样的
+<img src="https://blog-1252181333.cos.ap-shanghai.myqcloud.com/blog/hexo-highlight-2.png" alt></p><p>对比发现，我的<code>class</code>少了<code>hljs-</code>前缀，这样问题就很清晰了</p><h3 id="思考"><a href="#思考" aria-hidden="true" class="header-anchor">#</a> 思考</h3><p>这段<code>markdown</code>代码是如何转换成<code>html</code>格式的呢，只要我们发现了转换的代码，
+在其中加上这个前缀，问题不就解决了吗？</p><h3 id="解决"><a href="#解决" aria-hidden="true" class="header-anchor">#</a> 解决</h3><p>查询了相关资料，发现了 hexo 的一个 issue : <a href="https://github.com/hexojs/hexo/issues/434" target="_blank" rel="noopener noreferrer">#434</a>，其中提供这么一段代码<code>hljs.configure({classPrefix: ''})</code>，<a href="https://github.com/hexojs/hexo-util/blob/master/lib/highlight.js#L8-L10" target="_blank" rel="noopener noreferrer">highlight.js</a>，发现它就在<code>node_modules/hexo-util/lib/highlight.js</code>下，这段代码可以给我们的 code css 加上一个前缀，那么这个问题就解决了。</p><p>当我调试的时候，发现仍然没有高亮，原因是我们并没有引入<code>highlight.js</code>的高亮 css 文件，
+果然在 head 中引入 css 后，起作用了，代码高亮了，真是令人高兴的消息！</p><p>接下来，我又想定制高亮主题，我们可以在<code>_config.yml</code>文件中配置主题，从而在 head 中引入相关的 css 文件，这样就可以起到了定制主题的作用。</p><ul><li><p><strong>在 css 文件夹中引入 highlight 的全部主题 css 文件</strong></p></li><li><p><strong>head：</strong></p></li></ul><pre class="language-text"><code>    &lt;% if (theme.highlight_theme){ %&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;&lt;%- config.root %&gt;css/highlight/&lt;%- theme.highlight_theme %&gt;.css&quot;&gt;
+    &lt;% } %&gt;
+</code></pre><ul><li><strong>_config:</strong></li></ul><pre class="language-text"><code>    highlight_theme: atom-one-dark
+</code></pre><h3 id="完"><a href="#完" aria-hidden="true" class="header-anchor">#</a> 完~</h3></div><!----><div class="content page-nav"><p class="inner"><span class="prev">
+        ← <a href="/blog/lexical-dynamic-scope.html" class="prev">
+          词法作用域
+        </a></span><span class="next"><a href="/blog/call-by-sharing.html">
+          JS参数传递方式
+        </a> →
+      </span></p></div></div><!----></div><div class="tool-group"><!----></div></div></div><div class="background-mask" style="background:#f6f6f6;"></div></div></div>
+    <script src="/assets/js/6.e3166425.js" defer></script><script src="/assets/js/app.db3000a5.js" defer></script>
+  </body>
+</html>

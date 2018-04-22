@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Yubisaki | 词法作用域</title>
+    <meta name="description" content="vuepress theme Yubisaki">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="词法作用域 动态作用域"><meta name="keywords" content="词法作用域 动态作用域">
+    <link rel="preload" href="/assets/css/15.styles.03fdebab.css" as="style"><link rel="preload" href="/assets/js/app.db3000a5.js" as="script"><link rel="preload" href="/assets/js/5.1ad46237.js" as="script"><link rel="prefetch" href="/assets/js/8.6d436374.js"><link rel="prefetch" href="/assets/js/1.cf298749.js"><link rel="prefetch" href="/assets/js/2.d82320e5.js"><link rel="prefetch" href="/assets/js/3.133ffd67.js"><link rel="prefetch" href="/assets/js/4.3a8bcec1.js"><link rel="prefetch" href="/assets/js/6.e3166425.js"><link rel="prefetch" href="/assets/js/7.29200efe.js"><link rel="prefetch" href="/assets/js/0.548fc29d.js"><link rel="prefetch" href="/assets/js/9.00286f1c.js"><link rel="prefetch" href="/assets/js/10.8f545860.js"><link rel="prefetch" href="/assets/js/11.778aaf54.js"><link rel="prefetch" href="/assets/js/12.c9910cbf.js"><link rel="prefetch" href="/assets/js/13.333135f3.js"><link rel="prefetch" href="/assets/js/14.01e7f945.js">
+    <link rel="stylesheet" href="/assets/css/15.styles.03fdebab.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div><div class="wrap"><div class="theme-container container no-sidebar"><header class="navbar"><div class="nav-header"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><img src="/favicon.ico" class="logo"><span class="site-name can-hide">
+        Yubisaki
+      </span></a><nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">HOME</a></div><div class="nav-item"><a href="https://github.com/bloss" target="_blank" rel="noopener noreferrer" class="nav-link">GITHUB</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><!----></nav><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div></div></div></header><div class="sidebar-mask"></div><div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">HOME</a></div><div class="nav-item"><a href="https://github.com/bloss" target="_blank" rel="noopener noreferrer" class="nav-link">GITHUB</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><!----></nav><!----></div><div class="page-container"><div class="page card"><h1 class="page-title" style="color:#ac3e40;">
+    词法作用域
+  </h1><div class="content"><h3 id="作用域是什么"><a href="#作用域是什么" aria-hidden="true" class="header-anchor">#</a> 作用域是什么</h3><blockquote><p>作用域(scope)是指名字(name)与实体(entity)的绑定(binding)保持有效的那部分计算机程序 <a href="https://zh.wikipedia.org/wiki/%E4%BD%9C%E7%94%A8%E5%9F%9F" target="_blank" rel="noopener noreferrer">wiki</a></p></blockquote><p><strong>作用域规定了如何查找变量</strong></p><h3 id="词法作用域与动态作用域"><a href="#词法作用域与动态作用域" aria-hidden="true" class="header-anchor">#</a> 词法作用域与动态作用域</h3><ul><li><p>词法作用域的函数中遇到非形参非局部变量的时候，去函数定义的env中查询</p></li><li><p>动态作用域的函数中遇到非形参非局部变量的时候，去函数调用的环境中查询</p></li></ul><p>JS采用的是词法作用域(静态作用域)</p><p>举个栗子：</p><pre class="language-javascript"><code><span class="token keyword">var</span> value <span class="token operator">=</span> <span class="token number">1</span>
+
+<span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">bar</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> value <span class="token operator">=</span> <span class="token number">2</span>
+    <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">bar</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// 1</span>
+</code></pre><ol><li><p>采用词法作用域
+执行 <code>foo</code> 函数，<code>foo</code> 函数内部没有查找到局部变量 value，则在定义函数的环境中查找，value = 1，所以打印 1</p></li><li><p>采用动态作用域(<code>bash</code>)
+执行 <code>foo</code> 函数，<code>foo</code> 函数内部没有查找到局部变量 value，则从函数调用的作用域中查找，value = 2，所以打印 2</p></li></ol></div><!----><div class="content page-nav"><p class="inner"><span class="prev">
+        ← <a href="/blog/closure.html" class="prev">
+          闭包
+        </a></span><span class="next"><a href="/blog/hexo-highlight.html">
+          hexo代码高亮的问题
+        </a> →
+      </span></p></div></div><!----></div><div class="tool-group"><!----></div></div></div><div class="background-mask" style="background:#f6f6f6;"></div></div></div>
+    <script src="/assets/js/5.1ad46237.js" defer></script><script src="/assets/js/app.db3000a5.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Yubisaki | 记录 webpack 打包后的两个问题</title>
+    <meta name="description" content="vuepress theme Yubisaki">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="webpack 常见问题"><meta name="keywords" content="webpack 前端">
+    <link rel="preload" href="/assets/css/15.styles.03fdebab.css" as="style"><link rel="preload" href="/assets/js/app.db3000a5.js" as="script"><link rel="preload" href="/assets/js/0.548fc29d.js" as="script"><link rel="prefetch" href="/assets/js/8.6d436374.js"><link rel="prefetch" href="/assets/js/1.cf298749.js"><link rel="prefetch" href="/assets/js/2.d82320e5.js"><link rel="prefetch" href="/assets/js/3.133ffd67.js"><link rel="prefetch" href="/assets/js/4.3a8bcec1.js"><link rel="prefetch" href="/assets/js/5.1ad46237.js"><link rel="prefetch" href="/assets/js/6.e3166425.js"><link rel="prefetch" href="/assets/js/7.29200efe.js"><link rel="prefetch" href="/assets/js/9.00286f1c.js"><link rel="prefetch" href="/assets/js/10.8f545860.js"><link rel="prefetch" href="/assets/js/11.778aaf54.js"><link rel="prefetch" href="/assets/js/12.c9910cbf.js"><link rel="prefetch" href="/assets/js/13.333135f3.js"><link rel="prefetch" href="/assets/js/14.01e7f945.js">
+    <link rel="stylesheet" href="/assets/css/15.styles.03fdebab.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div><div class="wrap"><div class="theme-container container no-sidebar"><header class="navbar"><div class="nav-header"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><img src="/favicon.ico" class="logo"><span class="site-name can-hide">
+        Yubisaki
+      </span></a><nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">HOME</a></div><div class="nav-item"><a href="https://github.com/bloss" target="_blank" rel="noopener noreferrer" class="nav-link">GITHUB</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><!----></nav><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div></div></div></header><div class="sidebar-mask"></div><div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">HOME</a></div><div class="nav-item"><a href="https://github.com/bloss" target="_blank" rel="noopener noreferrer" class="nav-link">GITHUB</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于我</a></div><!----></nav><!----></div><div class="page-container"><div class="page card"><h1 class="page-title" style="color:#ac3e40;">
+    记录 webpack 打包后的两个问题
+  </h1><div class="content"><h3 id="打包后访问不到静态资源目录"><a href="#打包后访问不到静态资源目录" aria-hidden="true" class="header-anchor">#</a> 打包后访问不到静态资源目录</h3><p>原因: 打包后以相对路径去访问静态资源目录, 导致没有找到资源</p><p>解决方案:
+<code>index.html</code>中加入下面这一行</p><pre class="language-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>base</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>/<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+</code></pre><blockquote><p>HTML </p><base> 元素 指定用于一个文档中包含的所有相对URL的基本URL。一份中只能有一个<base>元素。 --- <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/base" target="_blank" rel="noopener noreferrer">MDN</a><p></p></blockquote><h3 id="使用-browserhistory-时-直接访问子路由-404"><a href="#使用-browserhistory-时-直接访问子路由-404" aria-hidden="true" class="header-anchor">#</a> 使用 browserHistory 时, 直接访问子路由 404</h3><p>原因: 当直接访问或者刷新子路由时, 浏览器会向服务器请求 <code>example.com/child</code>, 服务器
+会去根目录下找 <code>child.html</code> 文件, 但是我们服务器实际上并没有这样的物理路径文件, 因为
+我们的内容都是通过 <code>React-Router</code> 渲染出来的, 所以报了 <code>404 error</code></p><p>解决方案:
+这里给出一个 <code>nginx</code> 的方案:
+既然我们知道了出错的原因, 自然而然能想到一个方案, 就是让所有的请求都指向 <code>index.html</code>,
+子路由转交给 <code>React-Router</code> 处理</p><pre class="language-nginx"><code><span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+    <span class="token keyword">try_files</span> <span class="token variable">$uri</span> <span class="token operator">/</span><span class="token keyword">index</span><span class="token punctuation">.</span>html<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><p>当然也有其他的一些解决方案, 比如使用 <code>webpack-dev-server</code> 的服务器, 加上 <code>–history-api-fallback</code> 参数.</p><p>使用 <code>Node</code> 服务器的也有对应解决方案, 这里也不做赘述了.</p></div><!----><div class="content page-nav"><p class="inner"><span class="prev">
+        ← <a href="/blog/css-animation-performance.html" class="prev">
+          css 动画性能浅谈
+        </a></span><span class="next"><a href="/blog/linux-setup-tips.html">
+          linux 搭建 tips
+        </a> →
+      </span></p></div></div><!----></div><div class="tool-group"><!----></div></div></div><div class="background-mask" style="background:#f6f6f6;"></div></div></div>
+    <script src="/assets/js/0.548fc29d.js" defer></script><script src="/assets/js/app.db3000a5.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>JS参数传递方式 | IO</title>
+    <meta name="description" content="call-by-sharing">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="keywords" content="call-by-sharing js 值传递 前端">
+    <link rel="preload" href="/assets/css/0.styles.34a91c01.css" as="style"><link rel="preload" href="/assets/js/app.1d7e612b.js" as="script"><link rel="preload" href="/assets/js/9.f2498936.js" as="script"><link rel="preload" href="/assets/js/4.610a8c2d.js" as="script"><link rel="preload" href="/assets/js/18.fa2ecf26.js" as="script"><link rel="preload" href="/assets/js/21.aa043244.js" as="script"><link rel="preload" href="/assets/js/14.d5d834e9.js" as="script"><link rel="preload" href="/assets/js/34.3248a274.js" as="script"><link rel="preload" href="/assets/js/6.80fb3b38.js" as="script"><link rel="preload" href="/assets/js/15.805ef48f.js" as="script"><link rel="prefetch" href="/assets/js/10.baf67a03.js"><link rel="prefetch" href="/assets/js/11.a13740a8.js"><link rel="prefetch" href="/assets/js/12.6cc92fa7.js"><link rel="prefetch" href="/assets/js/13.1cdbeaef.js"><link rel="prefetch" href="/assets/js/16.e3b52258.js"><link rel="prefetch" href="/assets/js/17.34d59d24.js"><link rel="prefetch" href="/assets/js/19.4961866a.js"><link rel="prefetch" href="/assets/js/20.3c1c87e5.js"><link rel="prefetch" href="/assets/js/22.13396058.js"><link rel="prefetch" href="/assets/js/23.31c17ec9.js"><link rel="prefetch" href="/assets/js/24.da6d0632.js"><link rel="prefetch" href="/assets/js/25.5aee987f.js"><link rel="prefetch" href="/assets/js/26.34ae77cc.js"><link rel="prefetch" href="/assets/js/27.22e77ad2.js"><link rel="prefetch" href="/assets/js/28.0791c2de.js"><link rel="prefetch" href="/assets/js/29.151084cc.js"><link rel="prefetch" href="/assets/js/3.bab1f0f0.js"><link rel="prefetch" href="/assets/js/30.481d445c.js"><link rel="prefetch" href="/assets/js/31.ae717d71.js"><link rel="prefetch" href="/assets/js/32.6d96e455.js"><link rel="prefetch" href="/assets/js/33.93be09ed.js"><link rel="prefetch" href="/assets/js/35.3358949a.js"><link rel="prefetch" href="/assets/js/36.f8b52798.js"><link rel="prefetch" href="/assets/js/37.5d83ff46.js"><link rel="prefetch" href="/assets/js/38.46661fc3.js"><link rel="prefetch" href="/assets/js/39.919f2516.js"><link rel="prefetch" href="/assets/js/40.e6576534.js"><link rel="prefetch" href="/assets/js/41.854d77d2.js"><link rel="prefetch" href="/assets/js/42.037b500c.js"><link rel="prefetch" href="/assets/js/43.e3f14e0f.js"><link rel="prefetch" href="/assets/js/44.4811b2aa.js"><link rel="prefetch" href="/assets/js/45.7e30bfc6.js"><link rel="prefetch" href="/assets/js/46.020cd520.js"><link rel="prefetch" href="/assets/js/47.80b606a6.js"><link rel="prefetch" href="/assets/js/48.d217fec0.js"><link rel="prefetch" href="/assets/js/49.4bdc60f4.js"><link rel="prefetch" href="/assets/js/5.51f78e54.js"><link rel="prefetch" href="/assets/js/50.23be88d1.js"><link rel="prefetch" href="/assets/js/51.6178beeb.js"><link rel="prefetch" href="/assets/js/52.d09ab64c.js"><link rel="prefetch" href="/assets/js/53.453b705b.js"><link rel="prefetch" href="/assets/js/54.94fe5b7b.js"><link rel="prefetch" href="/assets/js/55.5fb742f3.js"><link rel="prefetch" href="/assets/js/7.a27664e4.js"><link rel="prefetch" href="/assets/js/8.82601291.js"><link rel="prefetch" href="/assets/js/vendors~flowchart.f212e8e4.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.34a91c01.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme"><header class="navbar"><div class="nav-header"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/static/logo.png" class="logo"> <span class="site-name can-hide">
+        IO
+      </span></a> <nav class="nav-links can-hide"><ul class="nav-ul"><li class="nav-item"><a href="/" class="nav-link">HOME</a></li><li class="nav-item"><a href="/tag/" class="nav-link">TAGS</a></li><li class="nav-item"><a href="https://github.com/bloss" target="_blank" rel="noopener noreferrer" class="nav-link">GITHUB</a></li><li class="nav-item"><a href="https://yuque.com/stickmyc" target="_blank" rel="noopener noreferrer" class="nav-link">语雀</a></li><li class="nav-item"><a href="/about/" class="nav-link">关于我</a></li></ul></nav> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div></div></div></header> <div class="sidebar-mask"></div> <!----> <div class="layout-container"><div class="main"><div class="layout-inner"><div class="card"><div class="content-header"><h1 class="page-title">JS参数传递方式</h1> <span class="page-timestamp">2017-08-15</span></div> <div class="content default"><h4 id="js参数都是按值传递的"><a href="#js参数都是按值传递的" aria-hidden="true" class="header-anchor">#</a> JS参数都是按值传递的</h4> <p>在高程中是这样描述的：</p> <blockquote><p>ECMAScript中所有函数的参数都是按值传递的</p></blockquote> <p>我们怎么理解这句话呢？</p> <h3 id="几个例子"><a href="#几个例子" aria-hidden="true" class="header-anchor">#</a> 几个例子 🌰</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    k <span class="token operator">=</span> <span class="token number">2</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token function">test</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>  <span class="token comment">//2</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token comment">//1</span>
+</code></pre></div><div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">var</span> o <span class="token operator">=</span> <span class="token punctuation">{</span>
+    value<span class="token punctuation">:</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    o<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token number">2</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>o<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token function">test</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token comment">//2</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>o<span class="token punctuation">.</span>value<span class="token punctuation">)</span> <span class="token comment">//2</span>
+</code></pre></div><div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">var</span> o <span class="token operator">=</span> <span class="token punctuation">{</span>
+    value<span class="token punctuation">:</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    o <span class="token operator">=</span> <span class="token number">2</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token function">test</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token comment">//2</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>o<span class="token punctuation">.</span>value<span class="token punctuation">)</span> <span class="token comment">//1</span>
+</code></pre></div><ol><li><p>我们先看第一个例子，很好理解，按值传递，当 <code>i</code> 被传进 test 方法，相当于拷贝了一份 i ，
+设这个值为 <code>_i</code> ，我们后续修改的都是 <code>_i</code> ，而不会影响原值</p></li> <li><p>再看第二个例子，把 <code>o</code> 传进 test 方法，传递的是地址值（即引用），所以当改变 <code>o</code> 的
+value 的时候，源对象也会被影响，因为两者是引用的同一个地址</p></li> <li><p>按照上面的说法，此处修改了 <code>o</code> 的值，源对象也应该被修改啊，然而源对象并没有变，是哪
+里出错了吗？难道说 js 并不是按值传递吗？</p></li></ol> <h3 id="进一步思考"><a href="#进一步思考" aria-hidden="true" class="header-anchor">#</a> 进一步思考</h3> <p>我们知道， js 数据类型分为两种：值类型和引用类型，值类型存储在栈中，引用类型存储在堆中，
+同时维护一个地址在栈中。而参数传递方式就是指实参传递给形参的一个过程。值传递就是将实参在
+栈中的值传给</p> <p>从这个角度来看三个例子：</p> <ol><li><p>在栈中申请一个地址 <code>001</code> ，给它一个值 <code>1</code>，将这个值传递到 test 方法，为形参 <code>o</code>在栈
+中申请一个地址 <code>002</code>， 将 <code>1</code>赋给 <code>002</code>，所以修改该值的时候，修改的是 <code>002</code> 地址的
+值，<code>001</code> 的值并没有发生改变。所以再次打印，依然是 <code>1</code></p></li> <li><p><code>o</code> 是引用类型，所以需要在堆中申请一个地址 <code>011</code>，保存一个对象（属性 value 为 1），
+然后在栈中申请一个地址 <code>001</code> ，这个地址保存了 <code>011</code> 这个内存地址值，然后为 test 方法
+的形参 <code>o</code> 在栈中申请一个地址 <code>002</code> ，它保存了 <code>011</code> 这个内存地址值，所以当修改它的值
+的时候，会去找 <code>011</code> 这个地址的对象。所以再次打印 <code>o</code> 的时候，它的值已经发生了变化</p></li> <li><p><code>o</code> 是引用类型，在堆中申请一个地址 <code>011</code> ，保存一个对象（属性 value 为 1），然后
+在栈中申请一个地址 <code>001</code> ，这个地址保存了 <code>011</code> 这个内存地址值，然后 test 方法的形参
+<code>o</code> 在栈中申请一个地址 <code>002</code>，它保存了 <code>011</code>这个内存地址值，到目前为止跟第二个例子
+都是一样的，接下来不同的地方来了，它给形参 <code>o</code> 赋值为 <code>2</code>，由于 <code>2</code> 是 Number 类型，
+所以直接给 <code>002</code> 这个地址赋值为 <code>2</code>，但是源对象在堆中的值并没有改变，所以第一次打印
+为 <code>2</code>，第二次打印仍然为 <code>1</code></p></li></ol> <h3 id="结论"><a href="#结论" aria-hidden="true" class="header-anchor">#</a> 结论</h3> <p>大家不要纠结于是值传递还是引用传递或者是 call by sharing。只要搞懂上面的几个概念，
+就能清楚了解js参数的传递方式</p></div> <div class="content page-nav"><p class="inner"><span class="prev">←
+          <a href="/blog/hexo-highlight.html" class="prev">hexo代码高亮的问题</a></span> <span class="next"><a href="/blog/git-usage.html">git使用的问题</a>→
+        </span></p></div></div> <div id="comment-container"><!----></div></div> <div class="tool-group"><!----></div></div></div> <footer class="footer"><span>锁窗前月明色, 雕阑外夜气清</span></footer></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.1d7e612b.js" defer></script><script src="/assets/js/9.f2498936.js" defer></script><script src="/assets/js/4.610a8c2d.js" defer></script><script src="/assets/js/18.fa2ecf26.js" defer></script><script src="/assets/js/21.aa043244.js" defer></script><script src="/assets/js/14.d5d834e9.js" defer></script><script src="/assets/js/34.3248a274.js" defer></script><script src="/assets/js/6.80fb3b38.js" defer></script><script src="/assets/js/15.805ef48f.js" defer></script>
+  </body>
+</html>
